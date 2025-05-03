@@ -6,3 +6,7 @@
       now migrate the db
       `npx sequelize db:migrate`
 }
+
+{
+      
+}
