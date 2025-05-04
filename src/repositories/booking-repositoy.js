@@ -1,6 +1,8 @@
 const {StatusCodes} = require('http-status-codes');
-const {Booking , CrudRepository} = require('../models/index');           
-const AppError = require('../utils/errors/app-error');
+const  { Booking } = require('../models');  
+const CrudRepository = require('./crud-repository'); // ✅ CORRECT
+      
+const AppError = require("../utils/errors/app-errors");
 const { Op } = require('sequelize');
 class BookingRepository extends CrudRepository {
        constructor() {
