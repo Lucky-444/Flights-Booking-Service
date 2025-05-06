@@ -1,7 +1,7 @@
 
 const success = {
     success : true,
-    message : "successfullY accepted the request",
+    message : "successfully accepted the request",
     data:{},
     error: {},
 }

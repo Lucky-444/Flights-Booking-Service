@@ -102,3 +102,69 @@
             
       }
 }
+
+{
+      we manually cancel our payment
+      but if it is more than 5 mins then automatically the transactions would be cancelled
+      to implement this feature we need 
+      CRON _ JOBS --> read it from google ostechinix.com
+
+      Node_cron package -
+      `npm i cron-jobs`
+      run {
+      cron.schedule('*/30 * * * *', async () => {
+            in every 30 mins it would cancel the old bookings
+
+           await BookingService.cancelOldBookings();
+      });
+      }
+
+}
+-------- COMPLETED the 3 major ENGINEERING PROBLEMS-------------------------
+
+{
+      now new major issue
+      client make a payment
+      and payment got success 
+      and while returning the response something went wrong
+      client never recieve the notification that the payment make succefull
+      and the end of client doing double transaction  for the same booking 
+
+
+      another issue is that user make two payment request for the same bookings 
+      one after another definitely the transaction will go happen
+
+      concept callled as idempotency ==> {
+            it is the property of certain operatin in math and CS where they can be applied multiple times 
+            without changing the result beyond first applicatons
+
+
+            lets say you made a payment request and the payment is done
+            but by mistake one more request cameup {
+                  only the first request will applied the 2nd request will not show any effect 
+
+                  if(first request is not succesfull then then we definitely trying to apply the 2nd request)
+            }
+
+            idempotent api => for some error the 2nd request will come up and first request will succesfull
+            we are not going to apply the 2nd one 3rd one and beyond that
+
+
+            if somebody makes 2 payment request the payment will go through once
+
+      }
+
+      we have to send them idempotency key
+
+      if payment actually went through we save the idempotency key inside our server
+      before used it we will check the idempotency key is already there or not
+}
+
+package called uuid
+`npm i uuid`
+
+{
+      where we stored our idempotency key
+      we store it in reddis or in memory object 
+
+}
