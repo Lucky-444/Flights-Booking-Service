@@ -26,6 +26,8 @@ async function createBooking(data) {
         });
 
         await transaction.commit();
+
+
         return booking;
     } catch(error) {
         await transaction.rollback();
@@ -45,7 +47,7 @@ async function makePayment(data) {
             console.log(bookingDetails);
             const bookingTime = new Date(bookingDetails.createdAt);
             const currentTime = new Date();
-            if(currentTime - bookingTime > 300000) {
+            if(currentTime - bookingTime > 1800000) {
                 await cancelBooking(data.bookingId);
                 throw new AppError('The booking has expired', StatusCodes.BAD_REQUEST);
             }
@@ -58,6 +60,13 @@ async function makePayment(data) {
             // we assume here that payment is successful
             await bookingRepository.update(data.bookingId, {status: BOOKED}, transaction);
            
+            Queue.sendData({
+                content : `Booking Successfully done For the FLight ${data.bookingId}`,
+                subject : `Flight Booked`,
+                recepientEmail : 'swainlucky868@gmail.com',
+            })
+
+            
             await transaction.commit();
             
         } catch(error) {

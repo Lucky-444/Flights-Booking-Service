@@ -44,7 +44,22 @@ async function createBooking(req, res) {
 
 
 
+//POST /payments/
+//in headers pass idempotency key
+/**
+ *   req.headers ==> {
+ *    x-idempotency-key : sa-123-sha-25
+ * }
+ */
+/**
+ * req.body = {
+ * 
+ *              totalCost: req.body.totalCost,
+                 userId: req.body.userId,
+                bookingId: req.body.bookingId
 
+              }
+ */
 
 async function makePayment(req, res) {
         try {
