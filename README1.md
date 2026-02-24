@@ -225,7 +225,7 @@ Rabbit Mq is known as message broker
       {
                   async function connectQueue() {
                   try {
-                  const connect = await amqplib.connect("amqp://http://localhost:15672")  
+                  const connect = await amqplib.connect("amqp://localhost")  
                   } catch (error) {
                   console.log(error);
 
