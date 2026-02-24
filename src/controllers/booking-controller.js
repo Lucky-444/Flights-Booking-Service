@@ -11,8 +11,9 @@ async function createBooking(req, res) {
       
           const response = await BookingService.createBooking({
             flightId: req.body.flightId,
-            userId : req.body.userId,
-            noOfSeats : req.body.noOfSeats,
+            userId: req.body.userId,
+            noOfSeats: req.body.noOfSeats,
+            seats: req.body.seats,
           });
       
           SuccessResponse.data = response;
@@ -117,6 +118,7 @@ async function makePayment(req, res) {
       totalCost: req.body.totalCost,
       userId: req.body.userId,
       bookingId: req.body.bookingId,
+      seats: req.body.seats,
     });
 
     // ✅ STORE IDEMPOTENCY KEY IN REDIS WITH TTL
